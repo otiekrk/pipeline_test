@@ -1,0 +1,10 @@
+stages:
+  - lint
+lint-test-job:
+  stage: lint
+  image: registry.gitlab.com/pipeline-components/php-cs-fixer:latest
+  script:
+    - php-cs-fixer fix --config=.php-cs-fixer.config.php --verbose --show-progress=dots --dry-run
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == '___develop' #disable pipeline
+  allow_failure: true
